@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GitHub CDN Generator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  box-sizing:border-box;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont;
+}
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#0f172a,#020617);
+  color:#fff;
+}
+.card{
+  width:100%;
+  max-width:420px;
+  background:#020617;
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 20px 40px rgba(0,0,0,.5);
+}
+h1{
+  text-align:center;
+  font-size:22px;
+  margin-bottom:10px;
+}
+p{
+  text-align:center;
+  opacity:.8;
+  font-size:14px;
+}
+label{
+  font-size:13px;
+  margin-top:12px;
+  display:block;
+}
+input{
+  width:100%;
+  padding:12px;
+  margin-top:6px;
+  border-radius:10px;
+  border:none;
+  outline:none;
+  background:#020617;
+  color:#fff;
+  border:1px solid #1e293b;
+}
+button{
+  width:100%;
+  margin-top:16px;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,#2563eb,#22d3ee);
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+}
+.result{
+  margin-top:15px;
+  display:none;
+}
+textarea{
+  width:100%;
+  height:80px;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #1e293b;
+  background:#020617;
+  color:#22d3ee;
+  resize:none;
+}
+.copy{
+  margin-top:8px;
+  background:#16a34a;
+}
+footer{
+  text-align:center;
+  font-size:12px;
+  opacity:.6;
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>⚡ GitHub CDN Generator</h1>
+  <p>Auto jsDelivr CDN link builder</p>
+
+  <label>GitHub Username</label>
+  <input id="user" value="rtk-anolegend">
+
+  <label>Repository Name</label>
+  <input id="repo" value="viral-videos-sites">
+
+  <label>File Path (Example: Videos/video1.mp4)</label>
+  <input id="path" placeholder="Videos/video1.mp4">
+
+  <button onclick="generate()">Generate CDN Link</button>
+
+  <div class="result" id="result">
+    <label>CDN Link</label>
+    <textarea id="output" readonly></textarea>
+    <button class="copy" onclick="copy()">Copy Link</button>
+  </div>
+
+  <footer>Free CDN Tool • Powered by jsDelivr</footer>
+</div>
+
+<script>
+function generate(){
+  const user = document.getElementById("user").value.trim();
+  const repo = document.getElementById("repo").value.trim();
+  let path = document.getElementById("path").value.trim();
+
+  if(!user || !repo || !path){
+    alert("Sab fields bharo");
+    return;
+  }
+
+  path = path.replace(/ /g,"%20");
+
+  const url = `https://cdn.jsdelivr.net/gh/${user}/${repo}/${path}`;
+
+  document.getElementById("output").value = url;
+  document.getElementById("result").style.display="block";
+}
+
+function copy(){
+  const text = document.getElementById("output");
+  text.select();
+  document.execCommand("copy");
+  alert("CDN link copied!");
+}
+</script>
+
+</body>
+  </html>
